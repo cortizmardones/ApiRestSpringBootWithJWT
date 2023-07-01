@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Inicio con SpringBoot</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Inicio</h1>
+                
+        <p>Datos desde aplication.properties: </p>
+        <p>Bienvenido: <strong th:text="${messageApplicationProperties}"></strong></p>
+        <br>
+        
+        <p>Datos de entidad PERSONA: </p>
+        <p>Nombre: <strong th:text="${persona.nombre}"></strong></p>
+        <p>Apellido: <strong th:text="${persona.apellido}"></strong></p>
+        <p>Email: <strong th:text="${persona.email}"></strong></p>
+        <p>Telefono: <strong th:text="${persona.telefono}"></strong></p>
+        <br>
+		
+		<div th:if="${personList != null and !personList.empty}">
+		    <p>Datos de un Iterable desde la bdd (Iteraciónes): </p>
+	        <table>
+				<tr>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Email</th>
+					<th>Teléfono</th>
+				</tr>
+				<tr th:each="persona : ${personList}">
+					<td th:text="${persona.nombre}"></td>
+					<td th:text="${persona.apellido}"></td>
+					<td th:text="${persona.email}"></td>
+					<td th:text="${persona.telefono}"></td>
+				</tr>
+			</table>
+		</div>
+		<div th:if="${personList == null or personList.empty}">
+			No hay usuarios en la personList
+		</div>
+   
+    </body>
+</html>
