@@ -1,0 +1,29 @@
+
+PAGINA: Base64URL Encode (URL: https://base64.guru/standards/base64url/encode)
+
+	{"alg":"HS256","typ":"JWT"} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+	{"sub":"1234567890","name":"John Doe","iat":1516239022} = eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
+
+PAGINA: Base64URL Encode (URL: https://base64.guru/standards/base64url/encode)
+	{"alg":"HS256","typ":"JWT"} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+	{"iss":"carlos"} = DQp7ImlzcyI6ImNhcmxvcyJ9
+
+
+PRUEBAS:
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjYXJsb3MifQ.z_w_Gjgl8znHsBzc90RXX--kX2do3o_BJbypIufzpDA (JAVA)
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjYXJsb3MifQ.z_w_Gjgl8znHsBzc90RXX--kX2do3o_BJbypIufzpDA (página jwt.io)
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjYXJsb3MifQ.V-bqsfjEU9Hl3h2BW3_CjTQbDxQ962CTDhbIAIDh_fY (página encoded jwt.io)
+
+
+URL PRUEBAS:
+https://www.javainuse.com/hmac (FUNCIONA LA CLAVE SECRETA SIN ENCRIPTAR)
+https://www.liavaag.org/English/SHA-Generator/HMAC/ (FUNCIONA PERFECTO LAS 2 ENCRIPTADAS Y NO)
+	
+ESTRUCTURA:
+	key           = 'secretkey'
+	unsignedToken = encodeBase64Url(header) + '.' + encodeBase64Url(payload)
+	signature     = HMAC-SHA256(key, unsignedToken) 
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjYXJsb3MifQ
+
