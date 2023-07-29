@@ -3,7 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.demo.model.Persona;
+import com.example.demo.modelEntity.Persona;
 
 public interface InterfacePersonaService {
 
@@ -16,4 +16,6 @@ public interface InterfacePersonaService {
 	
 	// OTHERS
 	public List<Persona> readAllPerson();
+		
+
 }

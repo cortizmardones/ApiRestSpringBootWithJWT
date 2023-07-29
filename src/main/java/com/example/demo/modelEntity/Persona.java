@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.modelEntity;
 
 import java.io.Serializable;
 
@@ -23,6 +23,20 @@ public class Persona implements Serializable {
 	private String apellido;
 	private String email;
 	private String telefono;
+	
+	public Persona() {
+		
+	}
+
+	public Persona(Long idPersona, String nombre, String apellido, String email, String telefono) {
+		this.idPersona = idPersona;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.email = email;
+		this.telefono = telefono;
+	}
+	
+	
 	
 	
 	

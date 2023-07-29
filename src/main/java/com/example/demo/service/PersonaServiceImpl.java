@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.model.InterfacePersonaDao;
-import com.example.demo.model.Persona;
+import com.example.demo.modelEntity.Persona;
+import com.example.demo.repositoryDAO.InterfacePersonaDao;
 
 @Service
 public class PersonaServiceImpl implements InterfacePersonaService {
@@ -58,5 +58,15 @@ public class PersonaServiceImpl implements InterfacePersonaService {
 	public List<Persona> readAllPerson() {
 		return interfacePersonaDao.findAll();
 	}
-
+	
+	@Transactional(readOnly = true)
+	public Persona queryPersonalizada(Long id) {
+		return interfacePersonaDao.queryPersonalizada(id);
+	}
+	
+	@Transactional(readOnly = true)
+	public Optional<Persona> validateUserAndPass(String nombre, String apellido) {
+		return interfacePersonaDao.validateUserAndPass(nombre, apellido);
+	}
+	
 }

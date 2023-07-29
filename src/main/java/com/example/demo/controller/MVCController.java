@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.demo.model.InterfacePersonaDao;
-import com.example.demo.model.Persona;
+import com.example.demo.modelEntity.Persona;
+import com.example.demo.repositoryDAO.InterfacePersonaDao;
 
 import lombok.extern.slf4j.Slf4j;
 

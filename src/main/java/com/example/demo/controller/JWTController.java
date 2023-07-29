@@ -3,9 +3,11 @@ package com.example.demo.controller;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +21,12 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.demo.model.InterfaceUserTokenDao;
-import com.example.demo.model.ResponseJWT;
-import com.example.demo.model.UserToken;
+import com.example.demo.modelEntity.Persona;
+import com.example.demo.modelEntity.ResponseJWT;
+import com.example.demo.modelEntity.UserToken;
+import com.example.demo.repositoryDAO.InterfacePersonaDao;
+import com.example.demo.repositoryDAO.InterfaceUserTokenDao;
+import com.example.demo.service.PersonaServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,13 +39,14 @@ public class JWTController {
 	private String secretKey;
 		
 	@Autowired
-	private InterfaceUserTokenDao interfaceUserTokenDao;
+	private PersonaServiceImpl personaServiceImpl;
 
 	@GetMapping("/getToken/{user}/{password}")
 	public ResponseEntity<ResponseJWT> getToken(@PathVariable String user, @PathVariable String password) {
 		if (!validateUserAndPass(user.toLowerCase().trim(), password.toLowerCase().trim())) {
 			log.error("Invalid credentials, a JWT will not be generated");
 			return ResponseEntity.noContent().build();
+			//return new ResponseEntity<ResponseJWT>(new ResponseJWT("Credenciales inválidas",""), HttpStatus.BAD_GATEWAY);
 		}
 		try {
 			
@@ -54,7 +60,7 @@ public class JWTController {
 	        Date exp = new Date(expMillis);
 	        
 	        //String secretKeyBase64Encode = Base64.getUrlEncoder().encodeToString(secretKey.getBytes());
-	       // String secretKeyBase64Encode = Base64.getEncoder().encodeToString(secretKey.getBytes());
+	        //String secretKeyBase64Encode = Base64.getEncoder().encodeToString(secretKey.getBytes());
 			Algorithm algorithm = Algorithm.HMAC256(secretKey);
 	
 			String token = JWT.create()
@@ -77,6 +83,7 @@ public class JWTController {
 		log.info("Token recibido por usuario: '" + user + "' para validar: " + token );
 		if (token != null && !token.isEmpty()) {
 			try {
+				//String secretKeyBase64Encode = Base64.getUrlEncoder().encodeToString(secretKey.getBytes());
 				//String secretKeyBase64Encode = Base64.getEncoder().encodeToString(secretKey.getBytes());
 				Algorithm algorithm = Algorithm.HMAC256(secretKey);
 				JWTVerifier verifier = JWT.require(algorithm)
@@ -100,11 +107,9 @@ public class JWTController {
 
 	public boolean validateUserAndPass(String user, String password) {
 		try {
-			List<UserToken> userTokenList = interfaceUserTokenDao.findAll();
-			for(UserToken iterator: userTokenList) {
-				if (user.equalsIgnoreCase(iterator.getUser()) && password.equalsIgnoreCase(iterator.getPassword())) {
-					return true;
-				}
+			Optional<Persona> persona = personaServiceImpl.validateUserAndPass(user, password);
+			if(persona.isPresent()) {
+				return true;
 			}
 		} catch (Exception e) {
 			log.error("Error", e);
