@@ -1,11 +1,11 @@
-package com.example.demo.service;
+package com.example.demo.SERVICE;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.example.demo.modelEntity.Persona;
+import com.example.demo.MODEL_ENTITY.Persona;
 
-public interface InterfacePersonaService {
+public interface IPersonaService {
 
 	// CRUD
 	public int createPerson(Persona persona);

@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.CONTROLLER;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.demo.modelEntity.Persona;
-import com.example.demo.repositoryDAO.InterfacePersonaDao;
+import com.example.demo.DAO_REPOSITORY.IPersonaDAO;
+import com.example.demo.MODEL_ENTITY.Persona;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,7 +23,7 @@ public class MVCController {
 	private String messageApplicationProperties;
 	
 	@Autowired
-	private InterfacePersonaDao interfacePersonaDao;
+	private IPersonaDAO interfacePersonaDao;
 	
     @GetMapping("/home")
     public String inicio(Model model){

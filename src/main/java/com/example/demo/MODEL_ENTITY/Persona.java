@@ -1,4 +1,4 @@
-package com.example.demo.modelEntity;
+package com.example.demo.MODEL_ENTITY;
 
 import java.io.Serializable;
 
@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -23,6 +25,11 @@ public class Persona implements Serializable {
 	private String apellido;
 	private String email;
 	private String telefono;
+	
+	@OneToOne
+	//Name tabla Persona y referencedColumName tabla Mascota
+	@JoinColumn(name = "idmascota" , referencedColumnName = "idmascota")
+	private Mascota mascota;
 	
 	public Persona() {
 		

@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.CONTROLLER;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -19,10 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.modelEntity.Paciente;
-import com.example.demo.modelEntity.Persona;
-import com.example.demo.service.PersonaServiceImpl;
-
+import com.example.demo.DTO.PacienteDTO;
+import com.example.demo.MODEL_ENTITY.Persona;
+import com.example.demo.SERVICE.IPersonaService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -31,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PersonaController {
 
 	@Autowired
-	private PersonaServiceImpl personaServiceImpl;
+	private IPersonaService iPersonaService;
 	
 	@Autowired
 	private JWTController jwtController;
@@ -43,7 +42,7 @@ public class PersonaController {
 	public ResponseEntity<String> create(@RequestBody Persona persona , @RequestHeader String token , @RequestHeader String user) {
 		if(jwtController.validateToken(token, user)) {
 			try {
-				int result = personaServiceImpl.createPerson(persona);
+				int result = iPersonaService.createPerson(persona);
 				if (result == 1) {
 					return ResponseEntity.ok("Persona: " + persona.getNombre() + " insertada");
 				}
@@ -58,7 +57,7 @@ public class PersonaController {
 	public ResponseEntity<Persona> read(@PathVariable("id") Long id , @RequestHeader String token, @RequestHeader String user) {
 		if(jwtController.validateToken(token, user)) {
 			try {
-				Optional<Persona> optPersona = personaServiceImpl.readPerson(id);
+				Optional<Persona> optPersona = iPersonaService.readPerson(id);
 				if (optPersona.isPresent()) {
 					Persona persona = optPersona.get();
 					return ResponseEntity.ok(persona);
@@ -74,7 +73,7 @@ public class PersonaController {
 	public ResponseEntity<String> update(@RequestBody Persona persona, @RequestHeader String token, @RequestHeader String user) {
 		if(jwtController.validateToken(token, user)) {
 			try {
-				int result = personaServiceImpl.updatePerson(persona);
+				int result = iPersonaService.updatePerson(persona);
 				if (result == 1) {
 					return ResponseEntity.ok("Persona ID: " + persona.getIdPersona() + " actualizada");
 				}
@@ -89,7 +88,7 @@ public class PersonaController {
 	public ResponseEntity<String> delete(@PathVariable("id") Long id , @RequestHeader String token, @RequestHeader String user) {
 		if(jwtController.validateToken(token, user)) {
 			try {
-				int result = personaServiceImpl.deletePerson(id);
+				int result = iPersonaService.deletePerson(id);
 				if (result == 1) {
 					return ResponseEntity.ok("Persona ID: " + id + " eliminada");
 				}
@@ -105,7 +104,7 @@ public class PersonaController {
 		if(jwtController.validateToken(token, user)) {
 			List<Persona> personList = null;
 			try {
-				personList = personaServiceImpl.readAllPerson();
+				personList = iPersonaService.readAllPerson();
 				if (personList != null && personList.size() > 0) {
 					return ResponseEntity.ok(personList);
 				}
@@ -116,34 +115,34 @@ public class PersonaController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@GetMapping("/queryPersonalizada")
-	public ResponseEntity<Persona> queryPersonalizada() {
-		Persona persona = personaServiceImpl.queryPersonalizada(1L);
-		return ResponseEntity.ok(persona);
-	}
+//	@GetMapping("/queryPersonalizada")
+//	public ResponseEntity<Persona> queryPersonalizada() {
+//		Persona persona = personaService.queryPersonalizada(1L);
+//		return ResponseEntity.ok(persona);
+//	}
 	
 	
 	@GetMapping("/listarPacientes")
 	@ResponseBody
-	public List<Paciente> listaClientes() {
-		List<Paciente> listaPacientes = new ArrayList<Paciente>();
-		listaPacientes.add(new Paciente(1L, "16919995-7", "Carlos", "Ortiz", LocalDate.of(1988, 03, 22)));
-		listaPacientes.add(new Paciente(2L, "22715615-5", "Valentina", "Ortiz", LocalDate.of(2008, 05, 8)));
-		listaPacientes.add(new Paciente(3L, "23715615-5", "Hector", "Ojeda", LocalDate.of(2021, 05, 8)));
+	public List<PacienteDTO> listaClientes() {
+		List<PacienteDTO> listaPacientes = new ArrayList<PacienteDTO>();
+		listaPacientes.add(new PacienteDTO(1L, "16919995-7", "Carlos", "Ortiz", LocalDate.of(1988, 03, 22)));
+		listaPacientes.add(new PacienteDTO(2L, "22715615-5", "Valentina", "Ortiz", LocalDate.of(2008, 05, 8)));
+		listaPacientes.add(new PacienteDTO(3L, "23715615-5", "Hector", "Ojeda", LocalDate.of(2021, 05, 8)));
 		return listaPacientes;
 	}
 	
 	@GetMapping("/listarPacientesMenores")
 	@ResponseBody
-	public List<Paciente> listarPacientesMenores() {
-		List<Paciente> listaPacientes = new ArrayList<Paciente>();
-		listaPacientes.add(new Paciente(1L, "16919995-7", "Carlos", "Ortiz", LocalDate.of(1988, 03, 22)));
-		listaPacientes.add(new Paciente(2L, "22715615-5", "Valentina", "Ortiz", LocalDate.of(2008, 05, 8)));
-		listaPacientes.add(new Paciente(3L, "23715615-5", "Hector", "Ojeda", LocalDate.of(2021, 05, 8)));
+	public List<PacienteDTO> listarPacientesMenores() {
+		List<PacienteDTO> listaPacientes = new ArrayList<PacienteDTO>();
+		listaPacientes.add(new PacienteDTO(1L, "16919995-7", "Carlos", "Ortiz", LocalDate.of(1988, 03, 22)));
+		listaPacientes.add(new PacienteDTO(2L, "22715615-5", "Valentina", "Ortiz", LocalDate.of(2008, 05, 8)));
+		listaPacientes.add(new PacienteDTO(3L, "23715615-5", "Hector", "Ojeda", LocalDate.of(2021, 05, 8)));
 		
-		List<Paciente> listaPacientesMenores = new ArrayList<Paciente>();
+		List<PacienteDTO> listaPacientesMenores = new ArrayList<PacienteDTO>();
 		
-		for(Paciente iterator : listaPacientes) {
+		for(PacienteDTO iterator : listaPacientes) {
 			Period time = Period.between(iterator.getFechaNacimiento() , LocalDate.now());
 			if(time.getYears() < 18) {
 				listaPacientesMenores.add(iterator);

@@ -1,8 +1,8 @@
-package com.example.demo.modelEntity;
+package com.example.demo.DTO;
 
 import java.time.LocalDate;
 
-public class Paciente {
+public class PacienteDTO {
 
 	private Long id;
 	private String rut;
@@ -10,11 +10,11 @@ public class Paciente {
 	private String apellido;
 	private LocalDate fechaNacimiento;
 
-	public Paciente() {
+	public PacienteDTO() {
 
 	}
 
-	public Paciente(Long id, String rut, String nombre, String apellido, LocalDate fechaNacimiento) {
+	public PacienteDTO(Long id, String rut, String nombre, String apellido, LocalDate fechaNacimiento) {
 		this.id = id;
 		this.rut = rut;
 		this.nombre = nombre;

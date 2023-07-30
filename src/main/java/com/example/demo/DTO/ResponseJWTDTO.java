@@ -1,18 +1,18 @@
-package com.example.demo.modelEntity;
+package com.example.demo.DTO;
 
 import lombok.Data;
 
 @Data
-public class ResponseJWT {
+public class ResponseJWTDTO {
 	
 	private String messageResult;
 	private String jwtoken;
 	
-	public ResponseJWT() {
+	public ResponseJWTDTO() {
 		
 	}
 	
-	public ResponseJWT(String messageResult, String jwtoken) {
+	public ResponseJWTDTO(String messageResult, String jwtoken) {
 		this.messageResult = messageResult;
 		this.jwtoken = jwtoken;
 	}

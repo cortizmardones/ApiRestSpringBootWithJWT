@@ -1,13 +1,10 @@
-package com.example.demo.controller;
+package com.example.demo.CONTROLLER;
 
-import java.util.Base64;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,14 +16,10 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.demo.modelEntity.Persona;
-import com.example.demo.modelEntity.ResponseJWT;
-import com.example.demo.modelEntity.UserToken;
-import com.example.demo.repositoryDAO.InterfacePersonaDao;
-import com.example.demo.repositoryDAO.InterfaceUserTokenDao;
-import com.example.demo.service.PersonaServiceImpl;
+import com.example.demo.DTO.ResponseJWTDTO;
+import com.example.demo.MODEL_ENTITY.Persona;
+import com.example.demo.SERVICE.PersonaService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,10 +32,10 @@ public class JWTController {
 	private String secretKey;
 		
 	@Autowired
-	private PersonaServiceImpl personaServiceImpl;
+	private PersonaService personaService;
 
 	@GetMapping("/getToken/{user}/{password}")
-	public ResponseEntity<ResponseJWT> getToken(@PathVariable String user, @PathVariable String password) {
+	public ResponseEntity<ResponseJWTDTO> getToken(@PathVariable String user, @PathVariable String password) {
 		if (!validateUserAndPass(user.toLowerCase().trim(), password.toLowerCase().trim())) {
 			log.error("Invalid credentials, a JWT will not be generated");
 			return ResponseEntity.noContent().build();
@@ -69,7 +62,7 @@ public class JWTController {
 								//.withExpiresAt(exp)
 								.sign(algorithm);
 			log.info("Json Web Token generado: " + token);
-			ResponseJWT responseJWT = new ResponseJWT();
+			ResponseJWTDTO responseJWT = new ResponseJWTDTO();
 			responseJWT.setJwtoken(token);
 			responseJWT.setMessageResult("JWT generado exitosamente");
 			return ResponseEntity.ok(responseJWT);
@@ -107,7 +100,7 @@ public class JWTController {
 
 	public boolean validateUserAndPass(String user, String password) {
 		try {
-			Optional<Persona> persona = personaServiceImpl.validateUserAndPass(user, password);
+			Optional<Persona> persona = personaService.validateUserAndPass(user, password);
 			if(persona.isPresent()) {
 				return true;
 			}
