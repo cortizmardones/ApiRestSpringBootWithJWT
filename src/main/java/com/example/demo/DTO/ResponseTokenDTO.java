@@ -3,16 +3,16 @@ package com.example.demo.DTO;
 import lombok.Data;
 
 @Data
-public class ResponseJWTDTO {
+public class ResponseTokenDTO {
 	
 	private String messageResult;
 	private String jwtoken;
 	
-	public ResponseJWTDTO() {
+	public ResponseTokenDTO() {
 		
 	}
 	
-	public ResponseJWTDTO(String messageResult, String jwtoken) {
+	public ResponseTokenDTO(String messageResult, String jwtoken) {
 		this.messageResult = messageResult;
 		this.jwtoken = jwtoken;
 	}

@@ -16,6 +16,8 @@ public interface IPersonaService {
 	
 	// OTHERS
 	public List<Persona> readAllPerson();
+	
+	public Optional<Persona> validateUserAndPass(String nombre, String apellido);
 		
 
 }

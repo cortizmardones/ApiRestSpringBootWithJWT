@@ -59,11 +59,7 @@ public class PersonaService implements IPersonaService {
 		return iPersonaDAO.findAll();
 	}
 	
-//	@Transactional(readOnly = true)
-//	public Persona queryPersonalizada(Long id) {
-//		return iPersonaDAO.queryPersonalizada(id);
-//	}
-//	
+	@Override
 	@Transactional(readOnly = true)
 	public Optional<Persona> validateUserAndPass(String nombre, String apellido) {
 		return iPersonaDAO.validateUserAndPass(nombre, apellido);

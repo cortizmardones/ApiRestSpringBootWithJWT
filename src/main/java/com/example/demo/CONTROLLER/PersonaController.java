@@ -33,7 +33,7 @@ public class PersonaController {
 	private IPersonaService iPersonaService;
 	
 	@Autowired
-	private JWTController jwtController;
+	private TokenController jwtController;
 	
 	// JAVA QueryParams - SpringBoot (@RequestParam String id)
 	//http://localhost:8080/spring-mvc-basics/api/foos?id=abc
@@ -114,14 +114,7 @@ public class PersonaController {
 		}
 		return ResponseEntity.noContent().build();
 	}
-	
-//	@GetMapping("/queryPersonalizada")
-//	public ResponseEntity<Persona> queryPersonalizada() {
-//		Persona persona = personaService.queryPersonalizada(1L);
-//		return ResponseEntity.ok(persona);
-//	}
-	
-	
+		
 	@GetMapping("/listarPacientes")
 	@ResponseBody
 	public List<PacienteDTO> listaClientes() {
