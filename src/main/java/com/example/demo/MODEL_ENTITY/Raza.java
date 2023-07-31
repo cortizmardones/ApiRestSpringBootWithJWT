@@ -5,34 +5,27 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "mascota")
-public class Mascota {
+@Table(name = "raza")
+public class Raza {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idmascota")
+	@Column(name = "idraza")
 	private Long id;
 	private String nombre;
-	
-	@OneToOne
-	//Name tabla Mascota y referencedColumName tabla Raza
-	@JoinColumn(name = "idraza" , referencedColumnName = "idraza")
-	private Raza raza;
 
-	public Mascota() {
+	public Raza() {
+		super();
 	}
-
-	public Mascota(Long id, String nombre, Raza raza) {
+	
+	public Raza(Long id, String nombre) {
 		this.id = id;
 		this.nombre = nombre;
-		this.raza = raza;
 	}
 
 }
