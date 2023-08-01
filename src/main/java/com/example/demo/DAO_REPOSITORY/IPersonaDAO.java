@@ -8,10 +8,7 @@ import com.example.demo.MODEL_ENTITY.Persona;
 
 //public interface InterfacePersonaDao extends CrudRepository<Persona, Long>{
 public interface IPersonaDAO extends JpaRepository<Persona, Long>{
-	
-	@Query(value = "SELECT * FROM PERSONA WHERE id_persona = ?1", nativeQuery = true)
-	Persona queryPersonalizada(Long idPersona);
-	
+		
 	@Query(value = "SELECT * FROM PERSONA WHERE nombre = ?1 AND apellido = ?2", nativeQuery = true)
 	Optional<Persona> validateUserAndPass(String nombre, String apellido);
 	

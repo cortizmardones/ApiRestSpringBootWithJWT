@@ -19,7 +19,7 @@ public class RazaService implements IRazaService {
 	@Override
 	@Transactional
 	public int createRaza(Raza raza) {
-		if(raza.getId() == null) {
+		if(raza.getIdRaza() == null) {
 			iRazaDAO.save(raza);
 			return 1;
 		}
@@ -36,7 +36,7 @@ public class RazaService implements IRazaService {
 	@Override
 	@Transactional
 	public int updateRaza(Raza raza) {
-		if(iRazaDAO.existsById(raza.getId())) {
+		if(iRazaDAO.existsById(raza.getIdRaza())) {
 			iRazaDAO.save(raza);
 			return 1;
 		}

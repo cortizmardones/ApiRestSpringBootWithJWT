@@ -59,7 +59,7 @@ public class RazaController {
 		try {
 			int result = iRazaService.updateRaza(raza);
 			if (result == 1) {
-				return ResponseEntity.ok("Raza ID: " + raza.getId() + " actualizada");
+				return ResponseEntity.ok("Raza ID: " + raza.getIdRaza() + " actualizada");
 			}
 		} catch (Exception e) {
 			log.error("Error", e);

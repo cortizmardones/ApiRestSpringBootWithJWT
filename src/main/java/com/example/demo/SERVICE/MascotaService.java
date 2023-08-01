@@ -19,7 +19,7 @@ public class MascotaService implements IMascotaService {
 	@Override
 	@Transactional
 	public int createMascota(Mascota mascota) {
-		if(mascota.getId() == null) {
+		if(mascota.getIdMascota() == null) {
 			iMascotaDAO.save(mascota);
 			return 1;
 		}
@@ -36,7 +36,7 @@ public class MascotaService implements IMascotaService {
 	@Override
 	@Transactional
 	public int updateMascota(Mascota mascota) {
-		if(iMascotaDAO.existsById(mascota.getId())) {
+		if(iMascotaDAO.existsById(mascota.getIdMascota())) {
 			iMascotaDAO.save(mascota);
 			return 1;
 		}

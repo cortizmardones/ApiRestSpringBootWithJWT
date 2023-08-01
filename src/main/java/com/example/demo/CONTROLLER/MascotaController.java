@@ -59,7 +59,7 @@ public class MascotaController {
 		try {
 			int result = iMascotaService.updateMascota(mascota);
 			if (result == 1) {
-				return ResponseEntity.ok("mascota ID: " + mascota.getId() + " actualizada");
+				return ResponseEntity.ok("mascota ID: " + mascota.getIdMascota() + " actualizada");
 			}
 		} catch (Exception e) {
 			log.error("Error", e);
