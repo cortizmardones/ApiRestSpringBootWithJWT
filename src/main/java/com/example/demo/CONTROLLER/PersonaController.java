@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.DTO.PacienteDTO;
 import com.example.demo.MODEL_ENTITY.Persona;
 import com.example.demo.SERVICE.IPersonaService;
+
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -35,11 +36,14 @@ public class PersonaController {
 	@Autowired
 	private TokenController jwtController;
 	
-	// JAVA QueryParams - SpringBoot (@RequestParam String id)
-	//http://localhost:8080/spring-mvc-basics/api/foos?id=abc
+	// JAVA = 		QueryParams  
+	// SpringBoot =(@RequestParam String id)
+	// http://localhost:8080/spring-mvc-basics/api/foos?id=abc
 
 	@PostMapping("/create")
 	public ResponseEntity<String> create(@RequestBody Persona persona , @RequestHeader String token , @RequestHeader String user) {
+		log.info("Token: " + token);
+		log.info("User" + token);
 		if(jwtController.validateToken(token, user)) {
 			try {
 				int result = iPersonaService.createPerson(persona);
