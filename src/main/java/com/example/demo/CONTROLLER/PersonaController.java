@@ -42,8 +42,6 @@ public class PersonaController {
 
 	@PostMapping("/create")
 	public ResponseEntity<String> create(@RequestBody Persona persona , @RequestHeader String token , @RequestHeader String user) {
-		log.info("Token: " + token);
-		log.info("User" + token);
 		if(jwtController.validateToken(token, user)) {
 			try {
 				int result = iPersonaService.createPerson(persona);

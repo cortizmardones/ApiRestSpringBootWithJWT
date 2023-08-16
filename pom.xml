@@ -81,6 +81,9 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<image>
+						<name>springbootpack</name>
+					</image>
 				</configuration>
 			</plugin>
 		</plugins>
